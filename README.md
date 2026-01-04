@@ -20,7 +20,7 @@ A static site generator and directory for South African tax practitioners, built
    ```
 2. Start the dev server (builds CSS + HTML and watches for changes):
    ```bash
-   make dev
+   npm run dev
    ```
 3. Visit `http://localhost:8080`
 
