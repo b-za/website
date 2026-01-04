@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <meta name="description" content="{{ .Description }}">
 </head>
+
 <body class="min-h-screen flex flex-col">
     <!-- Navigation Placeholder -->
     <nav class="bg-gray-800 text-white p-4">
@@ -17,7 +19,7 @@
 
     <main class="flex-grow">
         {{ range .Sections }}
-            {{ template "section" . }}
+        {{ section . }}
         {{ end }}
     </main>
 
@@ -28,4 +30,5 @@
         </div>
     </footer>
 </body>
+
 </html>
