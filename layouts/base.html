@@ -9,13 +9,9 @@
     <meta name="description" content="{{ .Description }}">
 </head>
 
-<body class="min-h-screen flex flex-col">
-    <!-- Navigation Placeholder -->
-    <nav class="bg-gray-800 text-white p-4">
-        <div class="container mx-auto">
-            <a href="/" class="font-bold text-xl">My Site</a>
-        </div>
-    </nav>
+<body class="min-h-screen flex flex-col font-sans">
+    <!-- Navigation -->
+    {{ template "header" . }}
 
     <main class="flex-grow">
         {{ range .Sections }}
@@ -23,12 +19,8 @@
         {{ end }}
     </main>
 
-    <!-- Footer Placeholder -->
-    <footer class="bg-gray-100 p-8 mt-12">
-        <div class="container mx-auto text-center text-gray-600">
-            &copy; 2026 My Site. All rights reserved.
-        </div>
-    </footer>
+    <!-- Footer -->
+    {{ template "footer" . }}
 </body>
 
 </html>

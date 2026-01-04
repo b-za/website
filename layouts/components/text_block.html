@@ -1,12 +1,14 @@
 {{ define "text_block" }}
-<section class="py-12 bg-white">
-    <div class="container mx-auto px-4 max-w-4xl">
-        <h2 class="text-3xl font-bold mb-6 text-gray-800">{{ .Heading }}</h2>
-        {{ range .Paragraphs }}
-        <p class="mb-4 text-lg text-gray-600 leading-relaxed">
-            {{ . }}
-        </p>
-        {{ end }}
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-6 max-w-3xl">
+        <div class="prose prose-lg prose-indigo mx-auto">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-8">{{ .Heading }}</h2>
+            {{ range .Paragraphs }}
+            <p class="text-gray-600 leading-relaxed mb-6">
+                {{ . }}
+            </p>
+            {{ end }}
+        </div>
     </div>
 </section>
 {{ end }}
