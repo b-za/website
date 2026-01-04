@@ -97,8 +97,6 @@ func GetSiteContent() []Page {
 		},
 		// --- Submissions Pages ---
 		{
-		// --- Submissions Pages ---
-		{
 			Title:       "Personal Tax Services - Expert Individual Tax Filing | SA Tax Returns",
 			Description: "Professional assistance with your Personal Income Tax (ITR12) submissions. Ensure full SARS compliance and maximize your refund with our registered tax practitioners.",
 			Path:        "submissions/personal-tax/index.html",
