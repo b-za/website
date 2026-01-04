@@ -161,8 +161,6 @@ func GetSiteContent() []Page {
 
 		// --- Registrations Pages ---
 		{
-		// --- Registrations Pages ---
-		{
 			Title:       "SARS E-Filing Registration & Profile Setup | SA Tax Returns",
 			Description: "Need help getting on SARS E-Filing? We register profiles, fix login issues, and merge existing tax types.",
 			Path:        "registrations/efiling/index.html",
