@@ -2,11 +2,11 @@
 
 # Build the CSS using Tailwind CLI
 css:
-	npx tailwindcss -i ./styles/globals.css -o ./assets/css/style.css --minify
+	./node_modules/.bin/tailwindcss -i ./styles/globals.css -o ./assets/css/style.css --minify
 
 # Build the Go application (generates static files)
 build: css
-	go run cmd/builder/main.go definitions.go
+	go run cmd/builder/main.go cmd/builder/definitions.go
 
 # Development mode: watch for changes
 dev:
