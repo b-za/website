@@ -28,8 +28,11 @@ func GetSiteContent() []Page {
 				{
 					TemplateName: "hero",
 					Data: HeroData{
-						Title:    "Simplify Your Tax Returns",
-						Subtitle: "Find trusted accountants and tax practitioners in South Africa to help you file with confidence.",
+						Title:           "Professional Accountants & Consultants in Cape Town",
+						Subtitle:        "Are you looking for professional accountants and tax consultants in Cape Town? Stop stressing about SARS. We handle your Personal Tax, VAT, Payroll, and CIPC compliance so you can focus on growing your business.",
+						PrimaryBtn:      "Book Free Consultation",
+						SecondaryBtn:    "View Our Services",
+						BackgroundImage: "/assets/images/hero_background_capetown.png", // Assuming image saved here
 					},
 				},
 				{
@@ -98,8 +101,11 @@ func GetSiteContent() []Page {
 // --- Section Data Structs ---
 
 type HeroData struct {
-	Title    string
-	Subtitle string
+	Title           string
+	Subtitle        string
+	PrimaryBtn      string
+	SecondaryBtn    string
+	BackgroundImage string
 }
 
 type TextBlockData struct {
