@@ -53,15 +53,20 @@ func runDevMode() {
 }
 
 func needsRebuild(lastBuild time.Time) bool {
-	// Check layouts
-	files, _ := filepath.Glob("layouts/**/*.html")
-	moreFiles, _ := filepath.Glob("layouts/*.html")
-	files = append(files, moreFiles...)
+	// Check layouts and components
+	paths := []string{
+		"components/layouts/*.html",
+		"components/common/*.html",
+		"components/sections/*.html",
+	}
 
-	for _, f := range files {
-		info, err := os.Stat(f)
-		if err == nil && info.ModTime().After(lastBuild) {
-			return true
+	for _, p := range paths {
+		files, _ := filepath.Glob(p)
+		for _, f := range files {
+			info, err := os.Stat(f)
+			if err == nil && info.ModTime().After(lastBuild) {
+				return true
+			}
 		}
 	}
 	return false
