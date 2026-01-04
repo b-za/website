@@ -107,15 +107,23 @@ func build() {
 
 	tmpl = template.New("").Funcs(funcMap)
 
-	layoutFiles, err := filepath.Glob("layouts/*.html")
+	// Glob patterns
+	layoutFiles, err := filepath.Glob("components/layouts/*.html")
 	if err != nil {
 		log.Fatal(err)
 	}
-	componentFiles, err := filepath.Glob("layouts/components/*.html")
+	commonFiles, err := filepath.Glob("components/common/*.html")
 	if err != nil {
 		log.Fatal(err)
 	}
-	allFiles := append(layoutFiles, componentFiles...)
+	sectionFiles, err := filepath.Glob("components/sections/*.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Combine all files
+	allFiles := append(layoutFiles, commonFiles...)
+	allFiles = append(allFiles, sectionFiles...)
 
 	if len(allFiles) > 0 {
 		_, err = tmpl.ParseFiles(allFiles...)
