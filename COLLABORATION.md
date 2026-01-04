@@ -31,6 +31,12 @@ We work in distinct "Change Sessions" to organize large blocks of work.
     -   `components/layouts/`: Base HTML wrappers (e.g., `base.html`).
     -   `components/common/`: Global UI (Header, Footer).
     -   `components/sections/`: Reusable content blocks (Hero, Features, Forms).
+-   **Generated Output (`pages/`)**:
+    -   This directory contains the generated HTML files.
+    -   **It IS tracked in git**. This ensures the built site structure is versioned.
+-   **Distribution (`build/`)**:
+    -   Ephemeral folder for serving the site.
+    -   Populated by copying content from `pages/` and compiling CSS.
 -   **Styling**:
     -   Tailwind CSS v3.
     -   Config: `tailwind.config.js`.
@@ -42,6 +48,7 @@ We work in distinct "Change Sessions" to organize large blocks of work.
 -   **Adding Pages**:
     1.  Add a `Page` struct to `GetSiteContent()` in `definitions.go`.
     2.  Use existing `Section` templates or create new ones in `components/sections/`.
+    3.  Run `make build` to generate the file in `pages/`.
 -   **Adding Components**:
     1.  Create `components/sections/my_component.html`.
     2.  Define its data struct in `definitions.go`.
