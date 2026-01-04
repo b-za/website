@@ -21,25 +21,25 @@ func GetSiteContent() []Page {
 	return []Page{
 		// 1. Home Page
 		{
-			Title:       "Home",
-			Description: "Welcome to our digital agency.",
+			Title:       "SA Tax Returns - Find an Accountant",
+			Description: "Connect with verified tax practitioners and accountants for your tax returns.",
 			Path:        "index.html",
 			Sections: []Section{
 				{
 					TemplateName: "hero",
 					Data: HeroData{
-						Title:    "Build Faster with Go & Tailwind",
-						Subtitle: "A modern static site generator architecture for power users.",
+						Title:    "Simplify Your Tax Returns",
+						Subtitle: "Find trusted accountants and tax practitioners in South Africa to help you file with confidence.",
 					},
 				},
 				{
 					TemplateName: "features",
 					Data: FeaturesData{
-						Title: "Why Choose Us?",
+						Title: "How It Works",
 						Items: []FeatureItem{
-							{Name: "Blazing Fast", Description: "Static builds entail zero server-side rendering time."},
-							{Name: "Type Safe", Description: "Content defined in Go structs ensures data consistency."},
-							{Name: "Modern Styles", Description: "Utility-first CSS with Tailwind for rapid UI development."},
+							{Name: "Search Professionals", Description: "Browse our directory of verified tax practitioners by expertise and location."},
+							{Name: "Compare Services", Description: "View profiles, services, and reviews to find the perfect match for your needs."},
+							{Name: "Get Listed", Description: "Are you an accountant? List your practice today to reach thousands of potential clients."},
 						},
 					},
 				},
@@ -47,24 +47,24 @@ func GetSiteContent() []Page {
 		},
 		// 2. About Page
 		{
-			Title:       "About Us",
-			Description: "Learn more about our team and mission.",
+			Title:       "About - SA Tax Returns",
+			Description: "Our mission to simplify tax filing in South Africa.",
 			Path:        "about/index.html",
 			Sections: []Section{
 				{
 					TemplateName: "hero",
 					Data: HeroData{
-						Title:    "Our Story",
-						Subtitle: "Dedicated to simplicity and performance.",
+						Title:    "Bridging the Gap",
+						Subtitle: "Connecting taxpayers with the right direct professional help.",
 					},
 				},
 				{
 					TemplateName: "text_block",
 					Data: TextBlockData{
-						Heading: "Who We Are",
+						Heading: "Our Mission",
 						Paragraphs: []string{
-							"We are a small team of passionate developers who believe that web development has become too complex. Our mission is to strip back the layers of abstraction and return to the roots of fast, static HTML.",
-							"Founded in 2024, we noticed that while tools got more powerful, they also got slower to maintain. We chose Go for its simplicity and speed, and Tailwind for its flexibility.",
+							"Filing taxes can be daunting. SA Tax Returns was built to make professional tax assistance accessible to everyone. We believe that finding a qualified accountant should be as easy as searching for a restaurant.",
+							"We verify every practitioner on our platform to ensure you get high-quality advice and service. Whether you are an individual needing help with eFiling or a business looking for comprehensive bookkeeping, we have the right professional for you.",
 						},
 					},
 				},
@@ -72,22 +72,22 @@ func GetSiteContent() []Page {
 		},
 		// 3. Contact Page
 		{
-			Title:       "Contact",
-			Description: "Get in touch with us.",
+			Title:       "Contact Us",
+			Description: "Get in touch with the SA Tax Returns team.",
 			Path:        "contact/index.html",
 			Sections: []Section{
 				{
 					TemplateName: "hero",
 					Data: HeroData{
-						Title:    "Get In Touch",
-						Subtitle: "We'd love to hear from you.",
+						Title:    "Contact Support",
+						Subtitle: "Need help with the platform? We're here to assist.",
 					},
 				},
 				{
 					TemplateName: "contact_form",
 					Data: ContactFormData{
 						Title:      "Send us a Message",
-						ButtonText: "Send Message",
+						ButtonText: "Submit Inquiry",
 					},
 				},
 			},
