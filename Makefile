@@ -2,7 +2,8 @@
 
 # Build the CSS using Tailwind CLI
 css:
-	./node_modules/.bin/tailwindcss -i ./styles/globals.css -o ./assets/css/style.css --minify
+	@mkdir -p build/assets/css
+	./node_modules/.bin/tailwindcss -i ./styles/globals.css -o ./build/assets/css/style.css --minify
 
 # Build the Go application (generates static files)
 build: css

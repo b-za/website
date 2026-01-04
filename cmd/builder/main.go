@@ -68,7 +68,9 @@ func needsRebuild(lastBuild time.Time) bool {
 }
 
 func rebuildCSS() {
-	cmd := exec.Command("./node_modules/.bin/tailwindcss", "-i", "./styles/globals.css", "-o", "./assets/css/style.css", "--minify")
+	// Ensure directory exists
+	os.MkdirAll("build/assets/css", 0755)
+	cmd := exec.Command("./node_modules/.bin/tailwindcss", "-i", "./styles/globals.css", "-o", "build/assets/css/style.css", "--minify")
 	if err := cmd.Run(); err != nil {
 		fmt.Println("Error rebuilding CSS:", err)
 	}
