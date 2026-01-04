@@ -75,7 +75,18 @@ func needsRebuild(lastBuild time.Time) bool {
 func rebuildCSS() {
 	// Ensure directory exists
 	os.MkdirAll("build/assets/css", 0755)
-	cmd := exec.Command("./node_modules/.bin/tailwindcss", "-i", "./styles/globals.css", "-o", "build/assets/css/style.css", "--minify")
+	// Use npm run css to handle cross-platform binary paths
+	cmd := exec.Command("npm", "run", "css")
+	// On Windows, you might need "cmd", "/C", "npm", ... but normally exec checks PATH.
+	// To be safe for Windows without shell:
+	if os.PathSeparator == '\\' {
+		cmd = exec.Command("cmd", "/C", "npm", "run", "css")
+	}
+
+	// Connect stdout/err to seeing output in dev console
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
 	if err := cmd.Run(); err != nil {
 		fmt.Println("Error rebuilding CSS:", err)
 	}

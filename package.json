@@ -4,7 +4,9 @@
   "description": "",
   "main": "tailwind.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "css": "tailwindcss -i ./styles/globals.css -o ./build/assets/css/style.css --minify",
+    "build": "npm run css && go run cmd/builder/main.go cmd/builder/definitions.go",
+    "dev": "go run cmd/builder/main.go cmd/builder/definitions.go --dev"
   },
   "keywords": [],
   "author": "",

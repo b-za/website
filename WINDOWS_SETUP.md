@@ -48,28 +48,27 @@ Standard Windows doesn't come with `make`. You have two options:
 
 ## 3. Running the Website
 
-### Method A: Using Make (Recommended with Git Bash)
-If you are using **Git Bash**, simply run:
+Since you have Node.js installed, the easiest way to run the site is using **npm scripts**. This works in any terminal (Command Prompt, PowerShell, Git Bash).
+
+### Development Mode (Recommended)
+Run this command to start the server and watch for changes:
 ```bash
-make dev
+npm run dev
 ```
-This will:
-1.  Build the CSS.
-2.  Start the Go web server.
-3.  Watch for unrelated changes.
-4.  Open your browser to `http://localhost:8080`.
+1.  It will build the site interactively.
+2.  Open `http://localhost:8080`.
+3.  Edit files in `cmd/builder/definitions.go` or `components/`, and the site will auto-update.
 
-### Method B: Manual Commands (Standard Command Prompt)
-If `make` is not working, you can run the commands manually in two separate terminal windows:
-
-**Window 1 (The Server):**
-```cmd
-go run cmd/builder/main.go cmd/builder/definitions.go --dev
+### Production Build
+To just build the files without starting a server:
+```bash
+npm run build
 ```
 
-**Window 2 (CSS Builder - run this when you change styles):**
-```cmd
-.\node_modules\.bin\tailwindcss -i ./styles/globals.css -o ./build/assets/css/style.css --minify
+### Just CSS
+If you only want to regenerate the CSS:
+```bash
+npm run css
 ```
 
 ---
