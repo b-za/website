@@ -9,7 +9,97 @@ import (
 	"path/filepath"
 )
 
+	"flag"
+	"fmt"
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"time"
+)
+
 func main() {
+	devMode := flag.Bool("dev", false, "Run in development mode (watch and serve)")
+	flag.Parse()
+
+	if *devMode {
+		runDevMode()
+		return
+	}
+
+	build()
+}
+
+func runDevMode() {
+	fmt.Println("Starting development server at http://localhost:8080")
+	
+	// Initial build
+	build()
+
+	// Start server
+	go func() {
+		fs := http.FileServer(http.Dir("build"))
+		http.Handle("/", fs)
+		log.Fatal(http.ListenAndServe(":8080", nil))
+	}()
+
+	// Polling watcher
+	ticker := time.NewTicker(500 * time.Millisecond)
+	lastBuild := time.Now()
+
+	for range ticker.C {
+		if needsRebuild(lastBuild) {
+			fmt.Println("Change detected. Rebuilding...")
+			rebuildCSS() // Build CSS first
+			build()      // Then Build HTML
+			lastBuild = time.Now()
+		}
+	}
+}
+
+func needsRebuild(lastBuild time.Time) bool {
+	// Check layouts
+	files, _ := filepath.Glob("layouts/**/*.html")
+	moreFiles, _ := filepath.Glob("layouts/*.html")
+	files = append(files, moreFiles...)
+	
+	// Check definitions (definitions.go is in cmd/builder/definitions.go, 
+	// but we might want to check the one we are running? 
+	// Actually `go run` compiles the binary, so we can't easily "hot reload" Go code changes 
+	// without restarting the process.
+	// But `html` templates we can reload.
+	// `definitions.go` changes require restarting the `go run` process unless we interpret it.
+	// Since we compile the structs into the binary, we MUST restart the binary to pick up struct changes.
+	// 
+	// LIMITATION: This watcher only reloads TEMPLATE changes effectively if we re-parse.
+	// But `build()` function re-parses everything.
+	// HOWEVER: If `pages` comes from `GetSiteContent()` which is compiled code, 
+	// we won't see changes in `definitions.go`.
+	
+	// For now, let's just watch templates.
+	// To support `definitions.go` reloading, users should use `air` or we need a wrapper.
+	// We will assume `make dev` usually handles Go reloading if using `air`.
+	// Our internal watcher is good for templates.
+	
+	for _, f := range files {
+		info, err := os.Stat(f)
+		if err == nil && info.ModTime().After(lastBuild) {
+			return true
+		}
+	}
+	return false
+}
+
+func rebuildCSS() {
+	cmd := exec.Command("./node_modules/.bin/tailwindcss", "-i", "./styles/globals.css", "-o", "./assets/css/style.css", "--minify")
+	if err := cmd.Run(); err != nil {
+		fmt.Println("Error rebuilding CSS:", err)
+	}
+}
+
+func build() {
 	fmt.Println("Building site...")
 
 	// 1. Prepare output directory

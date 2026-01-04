@@ -10,9 +10,7 @@ build: css
 
 # Development mode: watch for changes
 dev:
-	@echo "Starting development server..."
-	@# distinct simple watcher or just instructions to use air if installed
-	go run cmd/builder/main.go definitions.go --dev
+	go run cmd/builder/main.go cmd/builder/definitions.go --dev
 
 # Clean build artifacts
 clean:
