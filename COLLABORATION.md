@@ -16,7 +16,7 @@ We work in distinct "Change Sessions" to organize large blocks of work.
     -   **Action**: `git checkout -b feature/name-of-session` (or `daily/YYYY-MM-DD` if general work).
     - **CRITICAL RULE**: NEVER make changes directly on the `main` branch. Even for small fixes, create a temporary branch.
 2.  **Execution**:
-    -   Perform tasks, edit code, and verify using `make build` / `make dev`.
+    -   Perform tasks, edit code, and verify using `npm run build` / `npm run dev`.
     -   **Commit often**: `git commit -m "..."` for every logical step.
 3.  **Completion**:
     -   When the goal is met, ask the user: "Session goal complete. Ready to merge?"
@@ -44,11 +44,11 @@ We work in distinct "Change Sessions" to organize large blocks of work.
     -   Output: `build/assets/css/style.css`.
 
 ## 4. Development Protocols
--   **Running the Site**: `make dev` starts a watcher and server on port 8080.
+-   **Running the Site**: `npm run dev` starts a watcher and server on port 8080.
 -   **Adding Pages**:
     1.  Add a `Page` struct to `GetSiteContent()` in `definitions.go`.
     2.  Use existing `Section` templates or create new ones in `components/sections/`.
-    3.  Run `make build` to generate the file in `pages/`.
+    3.  Run `npm run build` to generate the file in `pages/`.
 -   **Adding Components**:
     1.  Create `components/sections/my_component.html`.
     2.  Define its data struct in `definitions.go`.
