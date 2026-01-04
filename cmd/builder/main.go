@@ -84,9 +84,17 @@ func rebuildCSS() {
 func build() {
 	fmt.Println("Building site...")
 
-	// 1. Prepare output directory
-	outputDir := "build"
-	if err := os.MkdirAll(outputDir, 0755); err != nil {
+	// 1. Prepare target directories
+	pagesDir := "pages"
+	buildDir := "build"
+
+	// Ensure pages directory exists
+	if err := os.MkdirAll(pagesDir, 0755); err != nil {
+		log.Fatal(err)
+	}
+
+	// Ensure build directory exists
+	if err := os.MkdirAll(buildDir, 0755); err != nil {
 		log.Fatal(err)
 	}
 
@@ -140,11 +148,12 @@ func build() {
 	// 3. Get Content
 	pages := GetSiteContent()
 
-	// 4. Generate Pages
+	// 4. Generate Pages into 'pages/' directory (Source)
 	for _, page := range pages {
-		fmt.Printf("Generating %s...\n", page.Path)
+		fmt.Printf("Generating content for %s...\n", page.Path)
 
-		outputPath := filepath.Join(outputDir, page.Path)
+		// Determine path in pages directory
+		outputPath := filepath.Join(pagesDir, page.Path)
 		if err := os.MkdirAll(filepath.Dir(outputPath), 0755); err != nil {
 			log.Fatal(err)
 		}
@@ -159,6 +168,36 @@ func build() {
 			log.Fatalf("Error executing template for %s: %v", page.Path, err)
 		}
 		f.Close()
+	}
+
+	// 5. Copy 'pages' content to 'build' (Distribution) including subdirectories
+	fmt.Println("Copying pages to build directory...")
+	err = filepath.Walk(pagesDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// Construct destination path
+		relPath, err := filepath.Rel(pagesDir, path)
+		if err != nil {
+			return err
+		}
+		destPath := filepath.Join(buildDir, relPath)
+
+		if info.IsDir() {
+			return os.MkdirAll(destPath, info.Mode())
+		}
+
+		// Copy file
+		sourceData, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		return os.WriteFile(destPath, sourceData, info.Mode())
+	})
+
+	if err != nil {
+		log.Fatalf("Error copying pages to build: %v", err)
 	}
 
 	fmt.Println("Done.")

@@ -3,3 +3,6 @@
 /public
 /.DS_Store
 .air.toml
+# Ensure pages are tracked
+!/pages
+
