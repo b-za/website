@@ -2,13 +2,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
-	"html/template"
-	"log"
-	"os"
-	"path/filepath"
-)
-
 	"flag"
 	"fmt"
 	"html/template"
@@ -34,7 +27,7 @@ func main() {
 
 func runDevMode() {
 	fmt.Println("Starting development server at http://localhost:8080")
-	
+
 	// Initial build
 	build()
 
@@ -64,25 +57,7 @@ func needsRebuild(lastBuild time.Time) bool {
 	files, _ := filepath.Glob("layouts/**/*.html")
 	moreFiles, _ := filepath.Glob("layouts/*.html")
 	files = append(files, moreFiles...)
-	
-	// Check definitions (definitions.go is in cmd/builder/definitions.go, 
-	// but we might want to check the one we are running? 
-	// Actually `go run` compiles the binary, so we can't easily "hot reload" Go code changes 
-	// without restarting the process.
-	// But `html` templates we can reload.
-	// `definitions.go` changes require restarting the `go run` process unless we interpret it.
-	// Since we compile the structs into the binary, we MUST restart the binary to pick up struct changes.
-	// 
-	// LIMITATION: This watcher only reloads TEMPLATE changes effectively if we re-parse.
-	// But `build()` function re-parses everything.
-	// HOWEVER: If `pages` comes from `GetSiteContent()` which is compiled code, 
-	// we won't see changes in `definitions.go`.
-	
-	// For now, let's just watch templates.
-	// To support `definitions.go` reloading, users should use `air` or we need a wrapper.
-	// We will assume `make dev` usually handles Go reloading if using `air`.
-	// Our internal watcher is good for templates.
-	
+
 	for _, f := range files {
 		info, err := os.Stat(f)
 		if err == nil && info.ModTime().After(lastBuild) {
@@ -109,10 +84,6 @@ func build() {
 	}
 
 	// 2. Parse all templates
-	// We parse all templates into a single set, but we start with a "root" that has the FuncMap.
-	// We need the FuncMap to be available to ALL templates.
-
-	// We initialize the variable first so the closure can capture it.
 	var tmpl *template.Template
 
 	funcMap := template.FuncMap{
@@ -121,7 +92,6 @@ func build() {
 		},
 		"section": func(s Section) (template.HTML, error) {
 			// This function allows dynamic dispatch: {{ section . }}
-			// It looks up the template by name (s.TemplateName) and executes it with s.Data.
 			if tmpl == nil {
 				return "", fmt.Errorf("template set is nil")
 			}
@@ -133,10 +103,8 @@ func build() {
 		},
 	}
 
-	// Create the root template with functions
 	tmpl = template.New("").Funcs(funcMap)
 
-	// Glob patterns
 	layoutFiles, err := filepath.Glob("layouts/*.html")
 	if err != nil {
 		log.Fatal(err)
@@ -145,11 +113,8 @@ func build() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// Combine all files
 	allFiles := append(layoutFiles, componentFiles...)
 
-	// Parse them into the set
 	if len(allFiles) > 0 {
 		_, err = tmpl.ParseFiles(allFiles...)
 		if err != nil {
@@ -174,7 +139,6 @@ func build() {
 			log.Fatal(err)
 		}
 
-		// Execute "base.html" which renders the page layout
 		err = tmpl.ExecuteTemplate(f, "base.html", page)
 		if err != nil {
 			log.Fatalf("Error executing template for %s: %v", page.Path, err)
