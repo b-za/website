@@ -13,7 +13,8 @@ We work in distinct "Change Sessions" to organize large blocks of work.
 ### Lifecycle of a Session
 1.  **Initiation**:
     -   When starting a significant feature, a day's work, or a major refactor, the agent must propose starting a session.
-    -   **Action**: `git checkout -b feature/name-of-session`
+    -   **Action**: `git checkout -b feature/name-of-session` (or `daily/YYYY-MM-DD` if general work).
+    - **CRITICAL RULE**: NEVER make changes directly on the `main` branch. Even for small fixes, create a temporary branch.
 2.  **Execution**:
     -   Perform tasks, edit code, and verify using `make build` / `make dev`.
     -   **Commit often**: `git commit -m "..."` for every logical step.
@@ -21,7 +22,7 @@ We work in distinct "Change Sessions" to organize large blocks of work.
     -   When the goal is met, ask the user: "Session goal complete. Ready to merge?"
     -   **Action**: `git checkout main && git merge feature/... && git branch -d feature/...`
 
-*Note: For micro-fixes or simple Q&A, you may stay on the current branch (usually `main`) without starting a formal session.*
+*Note: If no specific feature is being built, default to a daily session branch (e.g. `daily/2026-01-04`).*
 
 ## 3. Architecture Overview
 -   **Builder**: A custom static site generator in `cmd/builder/main.go`.
