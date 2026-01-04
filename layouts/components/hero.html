@@ -1,31 +1,41 @@
 {{ define "hero" }}
-<section class="relative bg-gray-900 overflow-hidden isolate">
-    <!-- Gradient Background -->
-    <div
-        class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20">
-    </div>
-    <div
-        class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center">
+<section class="relative bg-gray-900 overflow-hidden isolate pt-14">
+    <!-- Dark Background Gradient -->
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-900/50"></div>
+
+    <!-- Subtle Gradient Blob for Visual Interest (Dark Mode Safe) -->
+    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+        <div
+            class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]">
+        </div>
     </div>
 
-    <div class="container mx-auto px-6 py-24 sm:py-32 lg:py-40 text-center">
-        <div class="mx-auto max-w-2xl">
-            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl mb-6 drop-shadow-sm">
+    <div class="container mx-auto px-6 py-24 sm:py-32 lg:py-40 text-center relative z-10">
+        <div class="mx-auto max-w-3xl">
+            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl mb-6 shadow-black drop-shadow-lg">
                 {{ .Title }}
             </h1>
-            <p class="mt-6 text-lg leading-8 text-indigo-100 flex justify-center">
-                <span class="max-w-xl">{{ .Subtitle }}</span>
+            <p class="mt-6 text-lg leading-8 text-indigo-100 flex justify-center font-light">
+                <span class="max-w-2xl">{{ .Subtitle }}</span>
             </p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
                 <a href="#"
-                    class="rounded-full bg-indigo-500 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 transition-all duration-300 hover:scale-105">
-                    Get Started
+                    class="rounded-lg bg-indigo-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 transition-all duration-300">
+                    Find an Accountant
                 </a>
                 <a href="/about/index.html"
                     class="text-sm font-semibold leading-6 text-white hover:text-indigo-300 transition-colors">
                     Learn more <span aria-hidden="true">→</span>
                 </a>
             </div>
+        </div>
+    </div>
+
+    <!-- Bottom Blur Effect -->
+    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+        aria-hidden="true">
+        <div
+            class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]">
         </div>
     </div>
 </section>
